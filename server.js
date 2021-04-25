@@ -8,8 +8,12 @@ const app = express();
 const connectDB = require("./server/database/connection");
 
 dotenv.config({path:"config.env"});
-const PORT = process.env.PORT || 3000
-const host = '0.0.0.0';
+let PORT = process.env.PORT
+if(PORT == null || PORT == "")
+{
+    PORT = 3000;
+}
+// const host = '0.0.0.0';
 //log requests
 app.use(morgan('tiny'));
 
@@ -31,6 +35,6 @@ app.use("/js", express.static(path.resolve(__dirname,"assets/js")))
 // load routers
 app.use('/',require('./server/routes/router'))
 
-app.listen(PORT, host, function(){
+app.listen(PORT,function(){
     console.log("Server started.......");
 });
